@@ -1,0 +1,74 @@
+var iFileName = "NatureGenasi.js";
+RequiredSheetVersion(12.999);
+// This file adds the Nature Genasi subrace to MPMB's Character Record Sheet
+
+// Define the source
+SourceList.E={
+	name : "LocalArchLich: Nature Genasi", // November 2018 version
+	abbreviation : "LAL NG",
+	group : "Primary Sources",
+	url : "http://homebrewery.naturalcrit.com/share/BkZJa5Dxtf",
+	date : "2018/11/11"
+};
+
+// Races
+RaceList["nature genasi"] = {
+	regExpSearch : /^(?=.*(genasi|planetouched))(?=.*\bnatures?\b).*$/i,
+	name : "Nature genasi",
+	sortname : "Genasi, Nature",
+	source : ["LAL NG", 1],
+	plural : "Nature genasi",
+	size : 3,
+	speed : {
+		walk : { spd : 30, enc : 20 }
+	},
+	languageProfs : ["Common", "Primordial"],
+	age : " reach adulthood in their late teens and live up to 120 years",
+	height : " range from barely 5 to well over 6 feet tall (4'8\" + 2d10\")",
+	weight : " weigh around 165 lb (110 + 2d10 \xD7 2d4 lb)",
+	heightMetric : " range from barely 1,5 to well over 1,8 metres tall (145 + 5d10 cm)",
+	weightMetric : " weigh around 75 lb (50 + 5d10 \xD7 4d4 / 10 kg)",
+	improvements : "Nature Genasi: +2 Constitution, +1 Charisma;",
+	scores : [0, 0, 2, 0, 0, 1],
+	trait : "Nature Genasi (+2 Constitution, +1 Charisma)\n\nEnvironmental Attunement: I am attuned to the last environment I spend 200 days in. I gain a cantrip which relates to this environment. This attunement changes after I spend 200 consecutive days in a new environment.\n\nOne with the World. I gain proficiency with the nature skill. When I reach 3rd level, I can cast the Pass Without Trace spell once with this trait, requiring no material components, and I regain the ability to cast it this way when I finish a long rest. Constitution is my spellcasting ability for this spell.",
+	abilitySave : 3,
+	spellcastingAbility : 3,
+	features : {
+		"levitate" : {
+			name : "Levitate",
+			minlevel : 3,
+			usages : 1,
+			recovery : "long rest",
+			tooltip : " (One with the World)",
+			action : ["action", ""],
+			spellcastingBonus : {
+				name : "One with the World",
+				spells : ["Pass Without Trace"],
+				selection : ["Pass Without Trace"],
+				oncelr : true
+			}
+		}
+	}
+};
+
+// Feat
+FeatsList["svirfneblin magic"] = {
+	name : "Svirfneblin Magic",
+	source : [["E", 7], ["S", 115]],
+	prerequisite : "Being a Svirfneblin (Deep Gnome)",
+	prereqeval : "CurrentRace.known === 'deep gnome'",
+	description : "I can cast Nondetection on myself at will, without a material component. I can also cast the spells Blindness/Deafness, Blur, and Disguise Self once each. I regain the ability to cast these spells when I finish a long rest. Intelligence is my spellcasting ability for these spells.",
+	spellcastingBonus : [{
+		name : "at will (self only)",
+		spellcastingAbility : 4,
+		spells : ["nondetection"],
+		selection : ["nondetection"],
+		atwill : true
+	}, {
+		name : "1x long rest (self only)",
+		spells : ["blindness/deafness", "blur", "disguise self"],
+		selection : ["blindness/deafness", "blur", "disguise self"],
+		oncelr : true,
+		times : 3
+	}]
+};
